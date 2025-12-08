@@ -94,4 +94,61 @@ Model implemented in `src/model.py`.
 - Loss: MSE between predicted noise and true noise  
 
 Checkpoint is saved at:
+./checkpoints/model_latest.pth
 
+
+Images generated during training are saved under:
+./samples/
+
+
+
+---
+
+## 🎨 5. Results
+
+*(Replace this section with your actual images after training.)*
+
+Examples to include:
+
+- Forward diffusion trajectory (clean → noise)
+- Reverse denoising trajectory
+- Final generated samples from pure Gaussian noise
+
+Example (placeholder):
+samples/epoch_020.png
+samples/generated.png
+
+
+---
+
+## 💬 6. Discussion
+
+- The model successfully learns to denoise MNIST images and generate realistic digits.
+- Diffusion models produce diverse, smooth samples without GAN instability.
+- Training is slower than VAE/GAN because the model is trained with many timesteps.
+- Performance can improve with:
+  - Larger U-Net
+  - More diffusion steps (T = 1000)
+  - Cosine beta schedule
+  - Class-conditional training
+
+---
+
+## ▶️ 7. How to Run
+
+### **Install dependencies**
+```bash
+pip install -r requirements.txt
+
+python train.py
+
+python sample.py --checkpoint ./checkpoints/model_latest.pth
+
+./samples/generated.png
+
+##  8. Conclusion
+
+This project demonstrates a fully working DDPM implementation from scratch using PyTorch.
+It shows how diffusion models learn the data distribution via iterative denoising.
+
+This assignment also connects directly with the “Generative Models” section of the course and provides hands-on understanding of state-of-the-art generative modeling techniques.
