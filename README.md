@@ -217,7 +217,7 @@ Below are example samples generated with different methods:
 
 ### 6.3 Discussion
 
-- DDIM reuses the same noise-prediction model ε_θ but changes the reverse dynamics.
+- DDIM reuses the same noise-prediction model $$ε_θ$$ but changes the reverse dynamics.
 - By using a deterministic update rule with a carefully chosen timestep subsequence, we can **trade off generation speed and image quality**.
 - This experiment shows that diffusion models can generate high-quality MNIST digits with far fewer sampling steps than the original DDPM, which is especially important in resource-limited environments (like CPU-only training).
 
@@ -341,6 +341,7 @@ Overall, this project deepened my understanding of:
 
 Future work may include experimenting with cosine or quadratic beta schedules, conditional diffusion models, higher-resolution datasets, or classifier-free guidance.  
 Nevertheless, the results confirm that diffusion models — even in simple forms — are powerful and flexible generative frameworks.
+
 
 
 
