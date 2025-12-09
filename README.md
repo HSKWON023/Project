@@ -151,12 +151,28 @@ python train.py
 python sample.py --checkpoint ./checkpoints/model_latest.pth
 
 ./samples/generated.png
+```
 
-##  8. Conclusion
+## 8. Conclusion
 
-This project demonstrates a fully working DDPM implementation from scratch using PyTorch.
-It shows how diffusion models learn the data distribution via iterative denoising.
+In this project, I implemented a Denoising Diffusion Probabilistic Model (DDPM) from scratch using PyTorch and trained it on the MNIST dataset. The model successfully learned the reverse diffusion process, transforming pure Gaussian noise into realistic handwritten digits.
 
-This assignment also connects directly with the “Generative Models” section of the course and provides hands-on understanding of state-of-the-art generative modeling techniques.
+Through the training progression, we observed that:
+
+- Early-stage samples contained almost no recognizable structure.
+- As training proceeded, the model gradually improved its denoising ability.
+- By the final epoch, the model generated clear and diverse digit samples.
+
+This demonstrates the core principle of diffusion models: learning to predict noise at each timestep enables the reconstruction of complex data distributions. Despite being trained on a CPU and with limited computational resources, the results show that even a relatively small U-Net architecture can effectively model the MNIST distribution.
+
+Overall, this project helped me better understand:
+- The forward and reverse diffusion processes,
+- Noise prediction as a learning objective,
+- Practical implementation of a state-of-the-art generative model,
+- And the stability advantages of diffusion models compared to GANs.
+
+Future improvements could include experimenting with different noise schedules, training with more epochs on GPU, or extending the model to conditional or higher-resolution datasets. Nevertheless, the final results confirm that diffusion models are powerful and robust generative frameworks.
+
+
 
 
