@@ -201,7 +201,7 @@ DDIM treats the reverse process as a deterministic mapping and allows us to use 
 
   - The same trained model is reused; only the sampling process is changed.
 
-### 6.2 Qualitative Results
+### 6.2 Results
 
 Below are example samples generated with different methods:
 
@@ -214,8 +214,6 @@ Below are example samples generated with different methods:
 - **DDIM (20 steps)**  
   ![ddim_20](samples/generated_ddim_20.png)
 
-The 50-step DDIM samples are visually almost indistinguishable from the original 300-step DDPM samples, while being significantly faster to generate.  
-Even with only 20 steps, the model still produces recognizable digits, demonstrating the efficiency of DDIM-style sampling.
 
 ### 6.3 Discussion
 
@@ -225,11 +223,8 @@ Even with only 20 steps, the model still produces recognizable digits, demonstra
 
 ### 6.4 Analysis of DDIM Fast Sampling Results
 
-To evaluate the effectiveness of DDIM fast sampling, we compare samples generated with:
-
-- **DDPM (300 steps)**
-- **DDIM (50 steps)**
-- **DDIM (20 steps)**
+Building on the visual samples shown above, we further analyze how reducing sampling steps affects 
+the quality and structure of generated digits.
 
 The qualitative differences are summarized below.
 
@@ -346,6 +341,7 @@ Overall, this project deepened my understanding of:
 
 Future work may include experimenting with cosine or quadratic beta schedules, conditional diffusion models, higher-resolution datasets, or classifier-free guidance.  
 Nevertheless, the results confirm that diffusion models — even in simple forms — are powerful and flexible generative frameworks.
+
 
 
 
