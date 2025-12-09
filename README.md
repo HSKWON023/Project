@@ -310,7 +310,7 @@ Output:
 ./samples/generated_ddim_20.png
 ```
 
-Notes
+#### Notes
 
 DDPM always uses all 300 reverse steps.
 
@@ -321,33 +321,31 @@ Both methods reuse the same trained model; only the sampling strategy differs.
 
 ## 8. Conclusion
 
-In this project, I implemented a Denoising Diffusion Probabilistic Model (DDPM) from scratch using PyTorch and trained it on the MNIST dataset. The model successfully learned the reverse diffusion process, transforming pure Gaussian noise into realistic handwritten digits.
+In this project, I implemented a Denoising Diffusion Probabilistic Model (DDPM) from scratch and trained it on the MNIST dataset. The model successfully learned the reverse diffusion process and generated clear, diverse handwritten digits from pure Gaussian noise.
 
-Through the training progression, we observed that:
+Through the training progression, we observed:
 
-- Early-stage samples contained almost no recognizable structure.
-- As training proceeded, the model gradually improved its denoising ability.
-- By the final epoch, the model generated clear and diverse digit samples.
+- Early samples contained little recognizable structure.
+- Mid–late epoch samples showed increasing denoising ability.
+- Final DDPM samples were sharp, stable, and visually consistent.
 
-This demonstrates the core principle of diffusion models: learning to predict noise at each timestep enables the reconstruction of complex data distributions. Despite being trained on a CPU and with limited computational resources, the results show that even a relatively small U-Net architecture can effectively model the MNIST distribution.
+Beyond reproducing the baseline DDPM, this project extended the model with **DDIM fast sampling**.  
+By implementing DDIM and evaluating it at 50 and 20 sampling steps, I was able to empirically verify the **speed–quality trade-off** described in the DDIM paper:
 
-Overall, this project helped me better understand:
-- The forward and reverse diffusion processes,
-- Noise prediction as a learning objective,
-- Practical implementation of a state-of-the-art generative model,
-- And the stability advantages of diffusion models compared to GANs.
+- 50-step DDIM produced images nearly indistinguishable from full 300-step DDPM.
+- 20-step DDIM generated recognizable digits at a fraction of the runtime, albeit with more artifacts.
 
-Future improvements could include experimenting with different noise schedules, training with more epochs on GPU, or extending the model to conditional or higher-resolution datasets. Nevertheless, the final results confirm that diffusion models are powerful and robust generative frameworks.
+This extension demonstrates that diffusion models can sample efficiently without relying on the full reverse process, and that deterministic DDIM dynamics retain much of the model’s generative ability.
 
+Overall, this project deepened my understanding of:
 
+- Forward and reverse diffusion processes  
+- Noise prediction as a learning objective  
+- The role of timestep schedules in generative quality  
+- How alternative sampling strategies (like DDIM) impact runtime and output fidelity  
 
-
-
-
-
-
-
-
+Future work may include experimenting with cosine or quadratic beta schedules, conditional diffusion models, higher-resolution datasets, or classifier-free guidance.  
+Nevertheless, the results confirm that diffusion models — even in simple forms — are powerful and flexible generative frameworks.
 
 
 
