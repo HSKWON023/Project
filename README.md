@@ -268,16 +268,56 @@ These findings illustrate how DDIM can significantly accelerate generative sampl
 
 ## ▶️ 7. How to Run
 
-### **Install dependencies**
+### 1) Install dependencies
 ```bash
 pip install -r requirements.txt
-
-python train.py
-
-python sample.py --checkpoint ./checkpoints/model_latest.pth
-
-./samples/generated.png
 ```
+
+### 2) Train the model (DDPM training)
+```bash
+python train.py
+```
+A trained model checkpoint will be saved at:
+```bash
+./checkpoints/model_latest.pth
+```
+
+### 3) Generate samples using DDPM (300-step baseline)
+This performs the full reverse diffusion process.
+```bash
+python sample.py --checkpoint ./checkpoints/model_latest.pth --method ddpm --num_samples 64
+```
+The generated samples will be saved as:
+```bash
+./samples/generated_ddpm_full.png
+```
+
+### 4) Generate samples using DDIM (fast sampling)
+50-step DDIM (good speed–quality balance)
+```bash
+python sample.py --checkpoint ./checkpoints/model_latest.pth --method ddim --num_steps 50 --num_samples 64
+```
+Output:
+```bash
+./samples/generated_ddim_50.png
+```
+20-step DDIM (very fast sampling)
+```bash
+python sample.py --checkpoint ./checkpoints/model_latest.pth --method ddim --num_steps 20 --num_samples 64
+```
+Output:
+```bash
+./samples/generated_ddim_20.png
+```
+
+Notes
+
+DDPM always uses all 300 reverse steps.
+
+DDIM allows sampling with far fewer steps (e.g., 50, 20), significantly reducing runtime.
+
+Both methods reuse the same trained model; only the sampling strategy differs.
+
 
 ## 8. Conclusion
 
@@ -298,6 +338,7 @@ Overall, this project helped me better understand:
 - And the stability advantages of diffusion models compared to GANs.
 
 Future improvements could include experimenting with different noise schedules, training with more epochs on GPU, or extending the model to conditional or higher-resolution datasets. Nevertheless, the final results confirm that diffusion models are powerful and robust generative frameworks.
+
 
 
 
