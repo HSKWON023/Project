@@ -103,14 +103,14 @@ x_0^{\text{pred}}
        {\sqrt{\bar{\alpha}_t}}
 $$
 
-Then the next sample \( x_{t'} \) is computed deterministically:
+Then the next sample $$\( x_{t'} \)$$ is computed deterministically:
 
-##
+$$
 x_{t'}
 = \sqrt{\bar{\alpha}_{t'}}\, x_0^{\text{pred}}
 \;+\;
 \sqrt{1-\bar{\alpha}_{t'}}\, \epsilon_\theta(x_t,t)
-##
+$$
 
 This allows the model to generate coherent samples much faster, while still maintaining reasonable visual quality.
 
@@ -346,6 +346,7 @@ Overall, this project deepened my understanding of:
 
 Future work may include experimenting with cosine or quadratic beta schedules, conditional diffusion models, higher-resolution datasets, or classifier-free guidance.  
 Nevertheless, the results confirm that diffusion models — even in simple forms — are powerful and flexible generative frameworks.
+
 
 
 
