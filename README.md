@@ -135,16 +135,56 @@ After training for 20 epochs on MNIST, the diffusion model successfully generate
 
 ---
 
-## 💬 6. Discussion
+## 🚀 6. DDIM Fast Sampling (Extension)
 
-- The model successfully learns to denoise MNIST images and generate realistic digits.
-- Diffusion models produce diverse, smooth samples without GAN instability.
-- Training is slower than VAE/GAN because the model is trained with many timesteps.
-- Performance can improve with:
-  - Larger U-Net
-  - More diffusion steps (T = 1000)
-  - Cosine beta schedule
-  - Class-conditional training
+In the original DDPM formulation, sampling requires running the reverse process for all diffusion steps (T = 300 in this project). This makes generation relatively slow on CPU.
+
+To accelerate sampling, I additionally implemented **Denoising Diffusion Implicit Models (DDIM)** based on Song et al. (2020).  
+DDIM treats the reverse process as a deterministic mapping and allows us to use a **subsequence of timesteps** instead of all 300 steps.
+
+### 6.1 Implementation
+
+- I added a new method `ddim_sample()` in the `Diffusion` class.
+- Sampling now supports two modes:
+
+  - **DDPM (baseline)**  
+    ```bash
+    python sample.py --checkpoint checkpoints/model_latest.pth --method ddpm
+    ```
+    Uses all 300 steps of the reverse process.
+
+  - **DDIM (fast sampling)**  
+    ```bash
+    # 50-step DDIM
+    python sample.py --checkpoint checkpoints/model_latest.pth --method ddim --num_steps 50
+
+    # 20-step DDIM
+    python sample.py --checkpoint checkpoints/model_latest.pth --method ddim --num_steps 20
+    ```
+
+  - The same trained model is reused; only the sampling process is changed.
+
+### 6.2 Qualitative Results
+
+Below are example samples generated with different methods:
+
+- **DDPM (300 steps)**  
+  ![ddpm_full](samples/generated_ddpm_full.png)
+
+- **DDIM (50 steps)**  
+  ![ddim_50](samples/generated_ddim_50.png)
+
+- **DDIM (20 steps)**  
+  ![ddim_20](samples/generated_ddim_20.png)
+
+The 50-step DDIM samples are visually almost indistinguishable from the original 300-step DDPM samples, while being significantly faster to generate.  
+Even with only 20 steps, the model still produces recognizable digits, demonstrating the efficiency of DDIM-style sampling.
+
+### 6.3 Discussion
+
+- DDIM reuses the same noise-prediction model ε_θ but changes the reverse dynamics.
+- By using a deterministic update rule with a carefully chosen timestep subsequence, we can **trade off generation speed and image quality**.
+- This experiment shows that diffusion models can generate high-quality MNIST digits with far fewer sampling steps than the original DDPM, which is especially important in resource-limited environments (like CPU-only training).
 
 ---
 
@@ -180,6 +220,7 @@ Overall, this project helped me better understand:
 - And the stability advantages of diffusion models compared to GANs.
 
 Future improvements could include experimenting with different noise schedules, training with more epochs on GPU, or extending the model to conditional or higher-resolution datasets. Nevertheless, the final results confirm that diffusion models are powerful and robust generative frameworks.
+
 
 
 
