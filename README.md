@@ -84,21 +84,30 @@ A small **U-Net-like architecture** is used, with:
 
 ## 🧪 4. Experiments
 
-### **Training settings**
-- Timesteps: 300  
-- Beta schedule: linear \( \beta_t \in [10^{-4}, 0.02] \)
-- Optimizer: Adam (lr=2e-4)  
-- Epochs: 20 (adjustable)  
-- Batch size: 128  
-- Loss: MSE between predicted noise and true noise  
+### **Training Settings**
 
-Checkpoint is saved at:
+- **Timesteps:** 300  
+- **Beta schedule:** linear  
+  $$
+  \beta_t \in [10^{-4},\, 0.02]
+  $$
+- **Optimizer:** Adam (lr = 2e-4)  
+- **Epochs:** 20 (adjustable)  
+- **Batch size:** 128  
+- **Loss:** MSE between predicted noise and true noise  
+
+---
+
+### **Checkpoints**
+Trained model weights are saved at:
 ./checkpoints/model_latest.pth
 
 
-Images generated during training are saved under:
-./samples/
+---
 
+### **Generated Samples**
+Images produced during training are saved under:
+./samples/
 
 
 ---
@@ -171,6 +180,7 @@ Overall, this project helped me better understand:
 - And the stability advantages of diffusion models compared to GANs.
 
 Future improvements could include experimenting with different noise schedules, training with more epochs on GPU, or extending the model to conditional or higher-resolution datasets. Nevertheless, the final results confirm that diffusion models are powerful and robust generative frameworks.
+
 
 
 
