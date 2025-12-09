@@ -30,16 +30,6 @@ Images are scaled from `[0, 1]` to `[-1, 1]` during preprocessing.
 
 ---
 
-
-GitHub에서 이것도 LaTeX처럼 예쁘게 렌더링됨.
-
----
-
-# 🔥 해결: 너의 Method 섹션을 GitHub 친화적인 수식 형식으로 다시 작성해줄게  
-**아래 내용을 그대로 README에 붙여넣으면 수식 100% 정상적으로 표시됨.**
-
----
-
 ## ✅ 3. Method
 
 ### 3.1 Forward Process
@@ -181,6 +171,7 @@ Overall, this project helped me better understand:
 - And the stability advantages of diffusion models compared to GANs.
 
 Future improvements could include experimenting with different noise schedules, training with more epochs on GPU, or extending the model to conditional or higher-resolution datasets. Nevertheless, the final results confirm that diffusion models are powerful and robust generative frameworks.
+
 
 
 
