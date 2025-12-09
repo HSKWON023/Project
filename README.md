@@ -223,6 +223,47 @@ Even with only 20 steps, the model still produces recognizable digits, demonstra
 - By using a deterministic update rule with a carefully chosen timestep subsequence, we can **trade off generation speed and image quality**.
 - This experiment shows that diffusion models can generate high-quality MNIST digits with far fewer sampling steps than the original DDPM, which is especially important in resource-limited environments (like CPU-only training).
 
+### 6.4 Analysis of DDIM Fast Sampling Results
+
+To evaluate the effectiveness of DDIM fast sampling, we compare samples generated with:
+
+- **DDPM (300 steps)**
+- **DDIM (50 steps)**
+- **DDIM (20 steps)**
+
+The qualitative differences are summarized below.
+
+#### ✔ DDPM (300 steps)
+- Full reverse diffusion process.
+- Highest visual quality and stability.
+- Serves as the baseline for comparison.
+
+#### ✔ DDIM (50 steps)
+- Sampling time is dramatically reduced (about **6× faster**).
+- Digits remain sharp and well-formed.
+- Visual quality is **nearly indistinguishable from DDPM**.
+- Shows that most denoising refinement occurs in early timesteps.
+
+#### ✔ DDIM (20 steps)
+- Sampling is **15× faster** than DDPM.
+- Digits are still recognizable and structurally valid.
+- Some degradation appears:
+  - Slight blurring
+  - Occasional shape artifacts
+  - Reduced detail in strokes
+- Represents a good trade-off when real-time sampling is required.
+
+#### ✔ Overall Insights
+- DDIM demonstrates that **high-quality diffusion sampling does not require running every step**.
+- Speed–quality trade-off:
+  - 50-step DDIM ≈ DDPM quality  
+  - 20-step DDIM = acceptable quality with huge speedup
+- This confirms the theoretical result of Song et al. (2020):  
+  *the reverse process can be made deterministic without harming sample consistency*.
+
+These findings illustrate how DDIM can significantly accelerate generative sampling while preserving most of the model’s expressive power.
+
+
 ---
 
 ## ▶️ 7. How to Run
@@ -257,6 +298,7 @@ Overall, this project helped me better understand:
 - And the stability advantages of diffusion models compared to GANs.
 
 Future improvements could include experimenting with different noise schedules, training with more epochs on GPU, or extending the model to conditional or higher-resolution datasets. Nevertheless, the final results confirm that diffusion models are powerful and robust generative frameworks.
+
 
 
 
