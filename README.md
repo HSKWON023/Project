@@ -1,9 +1,8 @@
 # Diffusion Model on MNIST
 
-This project implements a simple **Denoising Diffusion Probabilistic Model (DDPM)** to generate MNIST-like handwritten digits using PyTorch.
+This project implements a Denoising Diffusion Probabilistic Model (DDPM) and an extended DDIM fast sampler to generate MNIST handwritten digits using PyTorch.
 
-The project is based on the content covered in the course **Machine Learning and Applications**, which introduced generative models such as Autoencoders, Variational Autoencoders, GANs, and Diffusion Models.  
-Diffusion models represent the current state-of-the-art in image generation and form the basis of modern models such as Stable Diffusion.
+Diffusion models are state-of-the-art generative models and form the basis of modern systems such as Stable Diffusion.
 
 ---
 
@@ -11,10 +10,15 @@ Diffusion models represent the current state-of-the-art in image generation and 
 
 The goal of this project is to:
 
-1. Implement the **forward (noising)** and **reverse (denoising)** processes of DDPM.
-2. Train a neural network to predict noise at arbitrary timesteps.
-3. Generate new MNIST digit samples from pure Gaussian noise.
-4. Visualize and analyze the behavior of diffusion-based generative models.
+1. Implement the forward (noising) and reverse (denoising) processes of DDPM.
+
+2. Train a UNet-based network to predict the noise at arbitrary timesteps.
+
+3. Generate new MNIST digit samples starting from pure Gaussian noise.
+
+4. Extend the baseline with DDIM fast sampling and compare speed/quality trade-offs.
+
+5. Analyze how sampling steps affect generative performance.
 
 ---
 
@@ -79,6 +83,39 @@ A small **U-Net-like architecture** is used, with:
 - timestep embeddings  
 - skip connections between encoder and decoder
 
+---
+
+### 3.4 DDIM Sampling (Extension)
+
+In addition to the standard DDPM reverse process, this project implements  
+**Denoising Diffusion Implicit Models (DDIM)** (Song et al., 2020) to enable *fast sampling*.
+
+DDIM redefines the reverse dynamics as a **deterministic mapping**, allowing sampling using only a
+subset of timesteps (e.g., 20 or 50 steps instead of all 300).  
+Importantly, the same trained noise-prediction model \( \epsilon_\theta \) is reused—only the sampling
+procedure changes.
+
+Given the predicted noise, DDIM reconstructs an estimate of the original image:
+
+\[
+x_0^{\text{pred}}
+= \frac{x_t - \sqrt{1-\bar{\alpha}_t}\,\epsilon_\theta(x_t,t)}
+       {\sqrt{\bar{\alpha}_t}}
+\]
+
+Then the next sample \( x_{t'} \) is computed deterministically:
+
+\[
+x_{t'}
+= \sqrt{\bar{\alpha}_{t'}}\, x_0^{\text{pred}}
+\;+\;
+\sqrt{1-\bar{\alpha}_{t'}}\, \epsilon_\theta(x_t,t)
+\]
+
+This allows the model to generate coherent samples **much faster**, while still maintaining reasonable visual quality.
+
+DDIM sampling is used later in the experiment section to compare 300-step DDPM sampling with 50-step
+and 20-step DDIM sampling.
 
 ---
 
@@ -135,12 +172,12 @@ After training for 20 epochs on MNIST, the diffusion model successfully generate
 
 ---
 
-## 🚀 6. DDIM Fast Sampling (Extension)
+## 🚀 6. DDIM Fast Sampling
 
 In the original DDPM formulation, sampling requires running the reverse process for all diffusion steps (T = 300 in this project). This makes generation relatively slow on CPU.
 
-To accelerate sampling, I additionally implemented **Denoising Diffusion Implicit Models (DDIM)** based on Song et al. (2020).  
-DDIM treats the reverse process as a deterministic mapping and allows us to use a **subsequence of timesteps** instead of all 300 steps.
+To accelerate sampling, I additionally implemented Denoising Diffusion Implicit Models (DDIM) based on Song et al. (2020).  
+DDIM treats the reverse process as a deterministic mapping and allows us to use a subsequence of timesteps instead of all 300 steps.
 
 ### 6.1 Implementation
 
@@ -220,6 +257,7 @@ Overall, this project helped me better understand:
 - And the stability advantages of diffusion models compared to GANs.
 
 Future improvements could include experimenting with different noise schedules, training with more epochs on GPU, or extending the model to conditional or higher-resolution datasets. Nevertheless, the final results confirm that diffusion models are powerful and robust generative frameworks.
+
 
 
 
