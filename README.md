@@ -106,10 +106,9 @@ Images generated during training are saved under:
 
 ## 5. Results
 
-### Training Progress (Epoch 1 → 20)
+### Training Samples (Epoch 1 → 20)
 
-During early epochs, the model produces almost purely random patterns, as expected.
-By epoch 20, the generated samples show clear digit structures.
+The following images show the progression of the model’s denoising ability during training.
 
 #### Epoch 1 (initial reverse diffusion)
 ![epoch_001](samples/epoch_001.png)
@@ -118,9 +117,11 @@ By epoch 20, the generated samples show clear digit structures.
 ![epoch_020](samples/epoch_020.png)
 
 ### Final Generated Samples
-After training, the diffusion model successfully generates MNIST-like digits from pure Gaussian noise.
+
+After training for 20 epochs on MNIST, the diffusion model successfully generates clear and diverse handwritten digits from pure Gaussian noise.
 
 ![generated](samples/generated.png)
+
 
 
 
@@ -157,4 +158,5 @@ This project demonstrates a fully working DDPM implementation from scratch using
 It shows how diffusion models learn the data distribution via iterative denoising.
 
 This assignment also connects directly with the “Generative Models” section of the course and provides hands-on understanding of state-of-the-art generative modeling techniques.
+
 
