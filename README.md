@@ -88,9 +88,9 @@ A small **U-Net-like architecture** is used, with:
 
 - **Timesteps:** 300  
 - **Beta schedule:** linear  
-  $$
-  \beta_t \in [10^{-4},\, 0.02]
-  $$
+```math
+β_t ∈ [10^{-4}, 0.02]
+```
 - **Optimizer:** Adam (lr = 2e-4)  
 - **Epochs:** 20 (adjustable)  
 - **Batch size:** 128  
@@ -180,6 +180,7 @@ Overall, this project helped me better understand:
 - And the stability advantages of diffusion models compared to GANs.
 
 Future improvements could include experimenting with different noise schedules, training with more epochs on GPU, or extending the model to conditional or higher-resolution datasets. Nevertheless, the final results confirm that diffusion models are powerful and robust generative frameworks.
+
 
 
 
