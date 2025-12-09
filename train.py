@@ -21,7 +21,13 @@ def main():
         transforms.Lambda(lambda x: x * 2 - 1),  # [-1,1]
     ])
     train_ds = datasets.MNIST(root="./data", train=True, download=True, transform=transform)
-    train_loader = DataLoader(train_ds, batch_size=128, shuffle=True, num_workers=4, pin_memory=True)
+    train_loader = DataLoader(
+        train_ds,
+        batch_size=128,
+        shuffle=True,
+        num_workers=0,  # 윈도우: 멀티프로세싱 끄기
+        pin_memory=False  # CPU만 쓸 거면 굳이 필요 없음
+    )
 
     # 2. Model & Diffusion
     model = UNet().to(device)
@@ -69,3 +75,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
