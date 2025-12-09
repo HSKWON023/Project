@@ -38,14 +38,14 @@ Images are scaled from `[0, 1]` to `[-1, 1]` during preprocessing.
 
 ### 3.1 Forward Process
 
-Starting from a clean image \( x_0 \), noise is gradually added according to:
+Starting from a clean image $$\( x_0 \)$$, noise is gradually added according to:
 
 $$
 q(x_t \mid x_{t-1})
 = \mathcal{N}(x_t;\, \sqrt{1-\beta_t}\, x_{t-1},\, \beta_t I)
 $$
 
-This can also be sampled in closed form from \( x_0 \):
+This can also be sampled in closed form from $$\( x_0 \)$$:
 
 $$
 x_t = \sqrt{\bar{\alpha}_t}\, x_0 \;+\; \sqrt{1 - \bar{\alpha}_t}\, \epsilon,
@@ -92,7 +92,7 @@ In addition to the standard DDPM reverse process, this project implements
 
 DDIM redefines the reverse dynamics as a **deterministic mapping**, allowing sampling using only a
 subset of timesteps (e.g., 20 or 50 steps instead of all 300).  
-Importantly, the same trained noise-prediction model \( \epsilon_\theta \) is reused—only the sampling
+Importantly, the same trained noise-prediction model $$\( \epsilon_\theta \)$$ is reused—only the sampling
 procedure changes.
 
 Given the predicted noise, DDIM reconstructs an estimate of the original image:
@@ -346,6 +346,7 @@ Overall, this project deepened my understanding of:
 
 Future work may include experimenting with cosine or quadratic beta schedules, conditional diffusion models, higher-resolution datasets, or classifier-free guidance.  
 Nevertheless, the results confirm that diffusion models — even in simple forms — are powerful and flexible generative frameworks.
+
 
 
 
