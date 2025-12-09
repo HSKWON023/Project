@@ -30,56 +30,65 @@ Images are scaled from `[0, 1]` to `[-1, 1]` during preprocessing.
 
 ---
 
-## ⚙️ 3. Method
 
-### **3.1 Forward Process**
-
-Starting from a clean image \( x_0 \), noise is gradually added:
-
-\[
-q(x_t \mid x_{t-1}) = \mathcal{N}(x_t ; \sqrt{1 - \beta_t}\, x_{t-1},\, \beta_t I)
-\]
-
-This can be sampled in a single step from \( x_0 \):
-
-\[
-x_t = \sqrt{\bar{\alpha}_t}\, x_0 + \sqrt{1 - \bar{\alpha}_t}\, \epsilon
-\]
-
-where \( \epsilon \sim \mathcal{N}(0, I) \).
+GitHub에서 이것도 LaTeX처럼 예쁘게 렌더링됨.
 
 ---
 
-### **3.2 Reverse Process**
+# 🔥 해결: 너의 Method 섹션을 GitHub 친화적인 수식 형식으로 다시 작성해줄게  
+**아래 내용을 그대로 README에 붙여넣으면 수식 100% 정상적으로 표시됨.**
+
+---
+
+## ✅ 3. Method
+
+### 3.1 Forward Process
+
+Starting from a clean image \( x_0 \), noise is gradually added according to:
+
+$$
+q(x_t \mid x_{t-1})
+= \mathcal{N}(x_t;\, \sqrt{1-\beta_t}\, x_{t-1},\, \beta_t I)
+$$
+
+This can also be sampled in closed form from \( x_0 \):
+
+$$
+x_t = \sqrt{\bar{\alpha}_t}\, x_0 \;+\; \sqrt{1 - \bar{\alpha}_t}\, \epsilon,
+\qquad
+\epsilon \sim \mathcal{N}(0, I)
+$$
+
+---
+
+### 3.2 Reverse Process
 
 The reverse process starts from pure noise and iteratively denoises the image:
 
-\[
+$$
 p_\theta(x_{t-1} \mid x_t)
-\]
+$$
 
-Instead of modeling this distribution directly, the network learns to **predict the noise** added in the forward process:
+Instead of directly modeling this distribution, the model learns to **predict the noise**:
 
-\[
-L(\theta) = 
-\mathbb{E}\left[
-  \| \epsilon - \epsilon_\theta(x_t, t) \|_2^2
-\right]
-\]
+$$
+L(\theta)
+= \mathbb{E}\left[ \| \epsilon - \epsilon_\theta(x_t, t) \|_2^2 \right]
+$$
 
-This simple loss is one of the reasons diffusion models are stable and easy to train compared to GANs.
+This simple objective makes diffusion models stable and easy to train, compared to GANs.
 
 ---
 
-### **3.3 Network Architecture**
+### 3.3 Network Architecture
 
-A small **U-Net-like architecture** is used:
+A small **U-Net-like architecture** is used, with:
 
-- Conv layers with residual blocks  
-- Timestep embedding added to each block  
-- Skip connections between downsampling and upsampling layers  
+- convolutional layers  
+- residual blocks  
+- timestep embeddings  
+- skip connections between encoder and decoder
 
-Model implemented in `src/model.py`.
 
 ---
 
@@ -172,6 +181,7 @@ Overall, this project helped me better understand:
 - And the stability advantages of diffusion models compared to GANs.
 
 Future improvements could include experimenting with different noise schedules, training with more epochs on GPU, or extending the model to conditional or higher-resolution datasets. Nevertheless, the final results confirm that diffusion models are powerful and robust generative frameworks.
+
 
 
 
