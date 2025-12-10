@@ -2,8 +2,6 @@
 
 This project implements a Denoising Diffusion Probabilistic Model (DDPM) and an extended DDIM fast sampler to generate MNIST handwritten digits using PyTorch.
 
-Diffusion models are state-of-the-art generative models and form the basis of modern systems such as Stable Diffusion.
-
 ---
 
 ## 📌 1. Project Goals
@@ -341,6 +339,7 @@ Overall, this project deepened my understanding of:
 
 Future work may include experimenting with cosine or quadratic beta schedules, conditional diffusion models, higher-resolution datasets, or classifier-free guidance.  
 Nevertheless, the results confirm that diffusion models — even in simple forms — are powerful and flexible generative frameworks.
+
 
 
 
